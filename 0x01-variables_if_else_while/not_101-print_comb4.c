@@ -1,17 +1,20 @@
 #include <stdio.h>
 
 int main() {
-    int i, j, k;
-    for (i = 0; i < 8; i++) {
-        for (j = i + 1; j < 9; j++) {
-            for (k = j + 1; k < 10; k++) {
-                putchar('0' + i);
-                putchar('0' + j);
-                putchar('0' + k);
-                if (i < 7 || j < 8 || k < 9) {
-                    putchar(',');
-                    putchar(' ');
-                }
+    int i, j;
+    for (i = 0; i < 100; i++) {
+        for (j = i; j < 100; j++) {
+            if (i == j) {
+                continue;
+            }
+            putchar('0' + i / 10);
+            putchar('0' + i % 10);
+            putchar(' ');
+            putchar('0' + j / 10);
+            putchar('0' + j % 10);
+            if (i < 99 || j < 98) {
+                putchar(',');
+                putchar(' ');
             }
         }
     }
