@@ -33,10 +33,10 @@ putchar(10);
 }
 
 /**
- * main - entry point
- *
- * Return: returns zero
- */
+* main - entry point
+*
+* Return: returns zero
+*/
 int main(void)
 {
 fibo();
