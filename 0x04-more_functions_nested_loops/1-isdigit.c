@@ -8,20 +8,8 @@
  */
 int _isdigit(int c)
 {
-	int i;
+	if (c >= '0' && c <= '9')
+		return (1);
 
-	/* printf("We are currently testing %d.\n\n", c); */
-
-	for (i = 48; i < 58; i++)
-	{
-		if (c == i)
-		{
-			return (1);
-		}
-		else
-		{
-			return (0);
-		}
-	}
 	return (0);
 }

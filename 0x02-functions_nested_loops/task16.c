@@ -1,11 +1,11 @@
 #include <stdio.h>
-
 /**
- * main - fibonacci sequence upto 98th number
- *
- * Return: Returns zero
- */
-
+* main - fibonacci <3
+*
+* Purpose - no hardcode
+*
+* Return:  (Success)
+*/
 int main(void)
 {
 	unsigned long int i;
