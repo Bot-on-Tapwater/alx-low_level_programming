@@ -23,22 +23,18 @@ void puts_half(char *str)
 		}
 		/* printf("\nValue of counter = %d\n", counter); */
 	}
-	printf("\n\nCounter is %d\n\n", counter);
-	if (counter % 2 == 0)
+	if (counter % 2 == 1)
 	{
-		printf("Counter is even\n\n");
-		for (i = counter / 2; i < counter; i++)
-		{
-			_putchar(str[i]);
-		}
+		i = counter / 2;
 	}
-	else if (counter % 2 == 1)
+	else
 	{
-		printf("Counter is odd\n\n");
-		for (i = (counter - 1) / 2; i < counter; i++)
-		{
-			_putchar(str[i]);
-		}
+		i = (counter - 1) / 2;
+	}
+
+	for (i++; i < counter; i++)
+	{
+		_putchar(str[i]);
 	}
 	_putchar(10);
 }

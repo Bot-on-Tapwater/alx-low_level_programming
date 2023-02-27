@@ -1,41 +1,44 @@
 #include "main.h"
+
 /**
- * rev_string - reverses a string
- * @s: string to be reversed
+ * puts_half - prints half of a string
+ * @str: string to be printed out
  *
  * Return: returns nothing
  */
-void rev_string(char *s)
+void puts_half(char *str)
 {
-	int i = 0;
-	int j;
-	int k;
-	int l;
+	int counter = 0;
+	int i;
 
 	while (1)
 	{
-		if (s[i])
+		if (str[counter])
 		{
-			i++;
+			counter++;
 		}
-		else if (!s[i])
+		else if (!str[counter])
 		{
 			break;
 		}
+		/* printf("\nValue of counter = %d\n", counter); */
 	}
-	k = i - 1;
-	if (1)
+	printf("\n\nCounter is %d\n\n", counter);
+	if (counter % 2 == 0)
 	{
-		char holder_str[i];
-
-		for (j = 0; j < i; j++)
+		printf("Counter is even\n\n");
+		for (i = counter / 2; i < counter; i++)
 		{
-			*(holder_str + j) = s[k];
-			k--;
-		}
-		for (l = 0; l < i; l++)
-		{
-			*(s + l) = holder_str[l];
+			_putchar(str[i]);
 		}
 	}
+	else if (counter % 2 == 1)
+	{
+		printf("Counter is odd\n\n");
+		for (i = (counter - 1) / 2; i < counter; i++)
+		{
+			_putchar(str[i]);
+		}
+	}
+	_putchar(10);
 }
