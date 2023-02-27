@@ -23,9 +23,10 @@ void puts_half(char *str)
 		}
 		/* printf("\nValue of counter = %d\n", counter); */
 	}
-
+	printf("\n\nCounter is %d\n\n", counter);
 	if (counter % 2 == 0)
 	{
+		printf("Counter is even\n\n");
 		for (i = counter / 2; i < counter; i++)
 		{
 			_putchar(str[i]);
@@ -33,7 +34,8 @@ void puts_half(char *str)
 	}
 	else if (counter % 2 == 1)
 	{
-		for (i = ((counter - 1) / 2); i < counter; i++)
+		printf("Counter is odd\n\n");
+		for (i = (counter - 1) / 2; i < counter; i++)
 		{
 			_putchar(str[i]);
 		}
