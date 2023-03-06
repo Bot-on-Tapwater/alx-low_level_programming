@@ -10,7 +10,8 @@
  */
 char *_memset(char *s, char b, unsigned int n)
 {
-	unsigned int count = 0; /* variable to check if n bytes of memory have been filled */
+	unsigned int count = 0; /* variable to check if */
+				/* n bytes of memory have been filled */
 
 	while (count < n) /* loop terminates when n bytes of memory filled */
 	{
