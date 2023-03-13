@@ -15,9 +15,10 @@ char *str_concat(char *s1, char *s2)
 	int len_s1 = 0; /* Length of s1 */
 	int len_s2 = 0; /* length of s2 */
 
-	/* if (str == 0) */
-		/* return null if str = NULL */
-		/* return (0); */
+	if (s1 == NULL) /* if s1 = NULL, s1 = empty string */
+		s1 = "";
+	if (s2 == NULL) /* if s2 = NULL, s2 = empty string */
+		s2 = "";
 
 	while (s1[len_s1] != '\0') /* Get length of s1 */
 		len_s1++;
@@ -38,7 +39,7 @@ char *str_concat(char *s1, char *s2)
 		cat_str[i] = s1[i]; /* Copy values of s1 to cat_str */
 	}
 
-	for (i = len_s1, j = 0; i < (len_s1 + len_s2); i++, j++)
+	for (i = len_s1, j = 0; s2[j] != '\0'; i++, j++)
 	{
 		/* printf("\n*s2[%d] to cat_str[%d]*\n", j, i); */
 		cat_str[i] = s2[j]; /* copy values of s2 to cat_str */
