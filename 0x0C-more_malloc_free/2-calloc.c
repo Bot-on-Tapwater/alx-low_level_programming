@@ -11,19 +11,26 @@
 void *_calloc(unsigned int nmemb, unsigned int size)
 {
 	void *ptr; /* ptr to the allocated memory */
+	size_t total_size;
 
 	if (nmemb == 0 || size == 0)
 	{
 		return (NULL);
 	}
+	total_size = nmemb * size;
 
-	ptr = malloc(size * nmemb);
+	ptr = malloc(total_size); /* allocating memory */
 
-	if (ptr == NULL)
+	if (ptr != NULL)
 	{
-		/* return NULL if malloc fails */
-		return (NULL);
+		unsigned char *p = (unsigned char *)ptr;
+		unsigned int i;
+
+		for (i = 0; i < total_size; i++)
+		{
+			p[i] = 0;
+		}
 	}
 
-	return (ptr)
-
+	return (ptr);
+}
