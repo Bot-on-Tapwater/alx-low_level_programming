@@ -23,6 +23,7 @@ void *_calloc(unsigned int nmemb, unsigned int size)
 
 	if (ptr != NULL)
 	{
+		/* setting memory to 0 */
 		unsigned char *p = (unsigned char *)ptr;
 		unsigned int i;
 
