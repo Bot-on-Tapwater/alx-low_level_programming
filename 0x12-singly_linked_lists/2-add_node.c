@@ -4,7 +4,7 @@
 #include "lists.h"
 
 /**
- * add_node - adds new nodes to linked list
+ * add_node - adds new nodes to beginning of linked list
  * @head: pointer to pointer of the head
  * @str: string to be passed to the new node
  *
