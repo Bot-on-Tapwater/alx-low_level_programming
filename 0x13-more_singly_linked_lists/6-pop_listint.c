@@ -11,6 +11,11 @@ int pop_listint(listint_t **head)
 	listint_t *new_head; /* pointer to second element */
 	int currentHead_n; /* value of n for current head */
 
+	if (*head == NULL)
+	{
+		return (0);
+	}
+
 	new_head = (*head)->next; /* assign second element to new_head */
 	currentHead_n = (*head)->n;
 

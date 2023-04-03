@@ -8,10 +8,14 @@ void free_listint2(listint_t **head)
 {
 	listint_t *temp_head; /* pointer to next element */
 
-	while (*head != NULL)
+	if (head != NULL)
 	{
-		temp_head = (*head)->next; /* copy of head->next */
-		free(*head); /* free head, everything lost n, next */
-		*head = temp_head; /* assign next element to head */
+		while (*head != NULL)
+		{
+			temp_head = (*head)->next; /* copy of head->next */
+			free(*head); /* free head, everything lost n, next */
+			*head = temp_head; /* assign next element to head */
+		}
 	}
 }
+

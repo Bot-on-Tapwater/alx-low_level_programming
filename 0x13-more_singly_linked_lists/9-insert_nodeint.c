@@ -1,49 +1,71 @@
 #include "lists.h"
 
 /**
- * insert_nodeint_at_index - inserts new node at a given position
- * @head: pointer to pointer of head node
- * @idx: index of insertion
- * @n: value to be inserted
+ * insert_nodeint_at_index - Inserts a new node at a given position in a
+ *                            linked list.
+ * @head: A pointer to a pointer to the head node of the list.
+ * @idx: The index of the list where the new node should be added.
+ * @n: The value to store in the new node.
  *
- * Return: NULL or pointer to new node
+ * Return: If memory allocation fails or the function fails to add the new node
+ *         at the specified position, NULL is returned. Otherwise, the address
+ *         of the new node is returned.
  */
 listint_t *insert_nodeint_at_index(listint_t **head, unsigned int idx, int n)
 {
-	listint_t *newNode, *tempHead, *tempPrevNode; /* stops loss of some nodes */
-	unsigned int indexCount = 0; /* current index tracker */
+	listint_t *newNode, *tempNode;
+	unsigned int nodeIndex = 0;
 
-	if (*head == NULL && idx == 0) /* empty list & inserting at index 0 */
-	{
-		newNode = malloc(sizeof(listint_t)); /* mem allocation */
-		newNode->n = n; /* assign n value to newNode */
-		newNode->next = NULL; /* newNode is the only node */
-		*head = newNode; /* assign head to newNode */
-	}
-	tempHead = *head;
-	while (tempHead != NULL)
-	{
-		if (idx == indexCount && tempHead->next != NULL) /* add node in middle */
-		{
-			newNode = malloc(sizeof(listint_t)); /* mem allocation */
-			newNode->n = n; /* assign n value to newNode */
-			newNode->next = tempHead; /* move current to next node */
-			tempPrevNode->next = newNode; /* prev node points to newNode*/
-			return (newNode);
-		}
-		else if (idx == (indexCount + 1) && tempHead->next == NULL) /* add end  */
-		{
-			newNode = malloc(sizeof(listint_t)); /* mem allocation */
-			newNode->n = n; /* assign n value to newNode */
-			newNode->next = NULL; /* newNode is last node */
-			tempPrevNode->next = tempHead; /* prev node points to original last node */
-			return (newNode);
-		}
-		indexCount++;
-		tempPrevNode = tempHead; /* stops loss of current node in next iteration */
-		tempHead = tempHead->next; /* move to next node*/
-	}
-	if (idx > indexCount + 1) /* index is out of bounds of list */
+	if (head == NULL) /* check for invalid input */
 		return (NULL);
-	return (NULL);
+
+	if (idx == 0) /* special case for inserting at head */
+		return (add_nodeint(head, n));
+
+	tempNode = *head;
+	while (tempNode != NULL && nodeIndex < idx - 1) /* find node before target */
+	{
+		tempNode = tempNode->next;
+		nodeIndex++;
+	}
+
+	if (tempNode == NULL || nodeIndex != idx - 1) /* check for invalid index */
+		return (NULL);
+
+	/* allocate memory for new node */
+	newNode = malloc(sizeof(listint_t));
+	if (newNode == NULL)
+		return (NULL);
+
+	newNode->n = n; /* set value of new node */
+	newNode->next = tempNode->next; /* link new node to next node */
+	tempNode->next = newNode; /* link previous node to new node */
+
+	return (newNode);
 }
+
+/**
+ * add_nodeint - adds new node at beginning
+ * @n: integer value for new node
+ * @head: pointer to head of linked list
+ *
+ * Return: NULL or pointer to new element
+ */
+listint_t *add_nodeint(listint_t **head, const int n)
+{
+	listint_t *new_node; /* pointer to new node */
+
+	new_node = malloc(sizeof(listint_t)); /* allocate memory for new element */
+
+	if (new_node == NULL) /* mem allocation check */
+	{
+		return (NULL);
+	}
+
+	new_node->n = n; /* assign value n to new element */
+	new_node->next = *head; /* assign next to previous "first" element */
+
+	*head = new_node; /* assign head to new "first" element */
+	return (new_node);
+}
+
