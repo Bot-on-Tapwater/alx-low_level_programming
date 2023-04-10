@@ -1,42 +1,54 @@
 #include <stdio.h>
-#include <sys/types.h>
-#include "main.h"
+#include <stdlib.h>
+#include <unistd.h>
 
 /**
- * read_textfile - reads a text file and prints it
- * @filename: string containing filename
- * @letters: number of characters to be printed
+ * read_textfile - function that reads a text file and prints it.
  *
- * Return: 0 or no. of printed chars
+ * @filename: the name of the file to read
+ * @letters: the number of letters to read and print
+ *
+ * Return: the actual number of letters read and printed, or 0 on failure
  */
 ssize_t read_textfile(const char *filename, size_t letters)
 {
-	FILE *fp; /* pointer to File object */
-	char c; /* chars in textfile */
-	int write_check;
-	ssize_t charpr = 0; /* no. of chars printed */
+	FILE *file;
+	char *buffer;
+	size_t bytes_read;
+	size_t bytes_written;
 
-	fp = fopen(filename, "r"); /* open file in read only mode */
+	if (filename == NULL) /* filename is NULL? */
+		return (0);
 
-	if (fp == NULL || filename == NULL)
+	file = fopen(filename, "r"); /* open in read mode */
+	if (file == NULL)
 	{
 		return (0);
 	}
 
-	while ((c = fgetc(fp)) != EOF && (size_t)charpr != letters)
+	buffer = malloc(letters); /* mem allocation */
+	if (buffer == NULL)
 	{
-		write_check = write(1, &c, 1); /* prints out characters */
-
-		if (write_check == -1)
-		{
-			return (0);
-		}
-		else
-		{
-			charpr++; /* increment char printed by 1 */
-		}
+		fclose(file); /* free resources */
+		return (0);
 	}
 
-	fclose(fp); /* close file */
-	return (charpr);
+	bytes_read = fread(buffer, 1, letters, file); /* read file */
+	if (bytes_read == 0) /* no bytes read */
+	{
+		free(buffer); /* free resources */
+		fclose(file);
+		return (0);
+	}
+
+	bytes_written = write(STDOUT_FILENO, buffer, bytes_read); /* print */
+	free(buffer); /* free resources */
+	fclose(file);
+
+	if (bytes_written != bytes_read) /* write successful? */
+	{
+		return (0);
+	}
+
+	return (bytes_written);
 }

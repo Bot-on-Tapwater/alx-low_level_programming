@@ -23,7 +23,8 @@ int append_text_to_file(const char *filename, char *text_context)
 
 		if (fp == NULL || filename == NULL)
 			return (-1);
-		write_check = fwrite(text_context, sizeof(char), strlen(text_context), fp);
+		if (text_context != NULL)
+			write_check = fwrite(text_context, sizeof(char), strlen(text_context), fp);
 		if (write_check == -1) /* write unsuccessful */
 			return (-1);
 		fclose(fp); /* close file */
