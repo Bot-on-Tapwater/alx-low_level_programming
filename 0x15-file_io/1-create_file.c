@@ -14,38 +14,38 @@
  */
 int create_file(const char *filename, char *text_context)
 {
-	FILE *fp;
-	mode_t mode;
+	FILE *fp; /* pointer to a FILE object */
+	mode_t mode; /* sets permissions to a file */
 	int write_check;
 	int chmod_check;
 
-	if (access(filename, F_OK) == 0)
+	if (access(filename, F_OK) == 0) /* if file exists) */
 	{
-		fp = fopen(filename, "w");
+		fp = fopen(filename, "w"); /* open file in write mode, overwrite */
 
 		if (fp == NULL || filename == NULL)
 			return (-1);
 		write_check = fwrite(text_context, sizeof(char), strlen(text_context), fp);
-		if (write_check == -1)
+		if (write_check == -1) /* write unsuccessful */
 			return (-1);
-		fclose(fp);
+		fclose(fp); /* close file */
 		return (1);
 	}
-	else
+	else /* File doesn't exists */
 	{
-		fp = fopen(filename, "w");
+		fp = fopen(filename, "w"); /* open file in write mode */
 
 		if (fp == NULL || filename == NULL)
 			return (-1);
 		write_check = fwrite(text_context, sizeof(char), strlen(text_context), fp);
-		if (write_check == -1)
+		if (write_check == -1) /* write unsuccessful */
 			return (-1);
-		fclose(fp);
+		fclose(fp); /* close file */
 
-		mode = S_IRUSR | S_IWUSR;
+		mode = S_IRUSR | S_IWUSR; /* specify permissions */
 		chmod_check = chmod(filename, mode);
 
-		if (chmod_check != 0)
+		if (chmod_check != 0) /* permission change failed */
 			return (0);
 		return (1);
 	}
