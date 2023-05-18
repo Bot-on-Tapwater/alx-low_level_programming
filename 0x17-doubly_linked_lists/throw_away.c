@@ -1,34 +1,65 @@
 #include "lists.h"
 
-dlistint_t *add_dnodeint_end(dlistint_t **head, const int n)
+/**
+ * insert_dnodeint_at_index - insterts node at given index
+ * @h: pointer to doubly linked list
+ * @idx: index
+ * @n: integer
+ * Return: pointer to new_node
+ */
+dlistint_t *insert_dnodeint_at_index(dlistint_t **h, unsigned int idx, int n)
 {
-	dlistint_t *new;
-	dlistint_t *temp_head = *head;
+	size_t len = dlistint_len(*h);
+	dlistint_t *temp_h = *h, *prev_temp = NULL, *new_node = malloc(sizeof(dlistint_t));
+	unsigned int count = 0;
 
-	new = malloc(sizeof(dlistint_t)); /* mem allocation */
-
-	if (new == NULL) /* check if malloc failed */
-	{
+	if (new_node == NULL || idx > (len)) /* malloc fail or out of range */
 		return (NULL);
-	}
+	else if (*h == NULL && idx != 0)
+		return (NULL);
 
-	new->n = n;
-	new->next = NULL;
-	new->prev = NULL;
-
-	if (*head == NULL)
+	while (temp_h != NULL && count <= idx)
 	{
-		*head = new;
-		return (new);
+		if (count == idx) /* arrived at element */
+		{
+			break;
+		}
+		count++;
+		prev_temp = temp_h;
+		temp_h = temp_h->next; /* move to next node */
 	}
 
-	while (temp_head->next != NULL) /* move to last node */
+	if (idx == 0) /* Front of list */
+		add_dnodeint(h, n);
+	else if (idx == (len)) /* Back of list */
+		add_dnodeint_end(h, n);
+	else /* Anywhere in middle */
 	{
-		temp_head = temp_head->next;
+		new_node->n = n;
+		new_node->prev = prev_temp;
+		new_node->next = temp_h;
+		temp_h->prev = new_node;
+		prev_temp->next = new_node;
+	}
+	return (new_node);
+
+}
+
+/**
+ * dlistint_len - counts no. of nodes
+ * @h: doubly linked list
+ * Return: number of nodes
+ */
+size_t dlistint_len(const dlistint_t *h)
+{
+	const dlistint_t *current = h;
+	size_t elem_count = 0; /* no. of elems */
+
+	while (current != NULL) /* increment counter */
+	{
+		elem_count++;
+		current = current->next;
 	}
 
-	new->prev = temp_head;
-	temp_head->next = new;
-
-	return (new);
+	return (elem_count);
 }
