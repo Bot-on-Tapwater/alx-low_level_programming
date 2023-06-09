@@ -77,7 +77,7 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 			current_element = current_element->next;
 		}
 		/* If key was not found in the linked list, add a new node */
-		if (addNode(&ht->array[index], key, value) != -1)
+		if (addNode(&ht->array[index], key, value) != NULL)
 			return (1);
 		else
 			return (0);
