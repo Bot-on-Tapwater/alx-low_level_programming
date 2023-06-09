@@ -5,8 +5,9 @@
  * @head: Pointer to the head of the linked list.
  * @key: Key for the new node.
  * @value: Value for the new node.
+ * Return: int
  */
-void addNode(hash_node_t **head, const char *key, const char *value)
+int addNode(hash_node_t **head, const char *key, const char *value)
 {
 	/* // Create a new node */
 	hash_node_t *newNode = (hash_node_t *)malloc(sizeof(hash_node_t));
@@ -14,11 +15,20 @@ void addNode(hash_node_t **head, const char *key, const char *value)
 	newNode->key = strdup(key);
 	newNode->value = strdup(value);
 
+	if (newNode == NULL || newNode->key == NULL)
+	{
+		free(newNode->key);
+		free(newNode->value);
+		return (-1);
+	}
+
 	/* Make the new node point to the current head */
 	newNode->next = *head;
 
 	/* Update the head to point to the new node */
 	*head = newNode;
+
+	return (1);
 }
 
 /**
@@ -33,14 +43,7 @@ hash_node_t *create_item(const char *key, const char *value)
 	/* Creates a linked list with our new element */
 	hash_node_t *new_element = malloc(sizeof(hash_node_t));
 
-	if (strcmp(key, "") == 0)
-	{
-		/* string cannot be empty */
-		return (NULL);
-	}
-
-	/* Mem allocation check */
-	if (new_element == NULL)
+	if (new_element == NULL || key == NULL || *key == '\0' || value == NULL)
 	{
 		return (NULL);
 	}
@@ -75,7 +78,7 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 	/* Store current index of array in a variable */
 	hash_node_t *current_element = ht->array[index];
 
-	if (new_element == NULL)
+	if (new_element == NULL || ht == NULL)
 	{
 		return (0);
 	}
@@ -90,7 +93,9 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 	else
 	{
 		/* If index is !NULL that means there is collision*/
-		addNode(&ht->array[index], key, value);
-		return (1);
+		if (addNode(&ht->array[index], key, value) != -1)
+			return (1);
+		else
+			return (0);
 	}
 }
