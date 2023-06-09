@@ -9,6 +9,11 @@ void hash_table_print(const hash_table_t *ht)
 	unsigned long int i;
 	int first = 1;
 
+	if (ht == NULL)
+	{
+		return;
+	}
+
 	printf("{");
 
 	/* Check if ht is NULL */
