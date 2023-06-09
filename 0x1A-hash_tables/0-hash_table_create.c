@@ -10,6 +10,9 @@ hash_table_t *hash_table_create(unsigned long int size)
 	/* Creates a new HashTable */
 	/* Declare and initialise hash table to NULL */
 	hash_table_t *my_table = NULL;
+	
+	/* For allocating values of the array to NULL */
+	unsigned long int i;
 
 	/* Allocate memory for hash table */
 	my_table = malloc(sizeof(hash_table_t));
@@ -31,6 +34,10 @@ hash_table_t *hash_table_create(unsigned long int size)
 	{
 		return (NULL);
 	}
+
+	/* Allocate memory in array to NULL */
+	for (i = 0; i < my_table->size; i++)
+		my_table->array[i] = NULL;
 
 	return (my_table);
 }
