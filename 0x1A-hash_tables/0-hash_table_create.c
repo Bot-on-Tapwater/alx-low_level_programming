@@ -10,7 +10,7 @@ hash_table_t *hash_table_create(unsigned long int size)
 	/* Creates a new HashTable */
 	/* Declare and initialise hash table to NULL */
 	hash_table_t *my_table = NULL;
-	
+
 	/* For allocating values of the array to NULL */
 	unsigned long int i;
 
