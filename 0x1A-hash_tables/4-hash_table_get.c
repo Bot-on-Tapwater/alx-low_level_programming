@@ -11,11 +11,16 @@ char *hash_table_get(const hash_table_t *ht, const char *key)
 	/* Get key_index using key_index() func */
 	unsigned long int index = key_index((const unsigned char *)key, ht->size);
 
+	if (ht == NULL || key == NULL || *key == '\0')
+		return (NULL);
+
 	/* Go to the Node/linked_list associated with Key index */
 	if (ht->array[index] == NULL)
 	{
 		return (NULL);
 	}
+
+	index = key_index((const unsigned char *)key, ht->size);
 
 	while (ht->array[index])
 	{
