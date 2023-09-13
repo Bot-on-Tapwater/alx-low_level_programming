@@ -13,7 +13,7 @@
  *         `value` is not present in the array or if the `array` is NULL.
  */
 int binary_search(int *array, size_t size, int value)
-{	
+{
 	int left = 0;
 	int right = size - 1;
 	int i;
