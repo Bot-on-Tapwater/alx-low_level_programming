@@ -2,6 +2,8 @@
 #define SEARCH_ALGOS_H
 
 #include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
 
 /**
  * struct skiplist_s - Singly linked list with an express lane
